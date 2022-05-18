@@ -1,44 +1,29 @@
-#include <iostream>
-#include <cmath>
+#include<iostream>
+
 using namespace std;
 
 int main()
 {
-    int A, B, C;
-    int count = 0;
-    cin >> A;
-    cin >> B;
-    cin >> C;
+	int iArr[10] = {0};
+	int A, B, C;
+	int iSum;
+	int i = 1;
+	int N;
+	
+	cin >> A >> B >> C;
 
-    int result = A * B * C;
-    int res = result;
-    int n = 1;
-    
-    while(result / 10 != 0)
-    {
-        result /= 10;
-        n++;
-    }
-    
-    int arr[n];
+	iSum = A * B * C;
 
-    for(int i = 0; i < n; i++)
-    {
-        arr[i] = (res % (int)pow(10, n-i) / pow(10, n-i-1));
-    }
+	while (iSum/i != 0)
+	{
+		N = iSum % (i * 10);
+		N /= i;
+		iArr[N] +=1;
+		i *= 10;
+	}
 
-    for(int i = 0; i <=9; i++)
-    {
-        for(int j = 0; j < n; j++)
-        {
-            if(i == arr[j])
-            {
-                count++;
-            }
-        }
-        cout << count << endl;
-        count = 0;
-    }
-
-    return 0;
+	for (int j = 0; j < 10; ++j)
+	{
+		cout << iArr[j] << endl;
+	}
 }
