@@ -9,10 +9,11 @@ int main()
 	scanf("%d %d %d", &A, &B, &C);
 
 	int mul = A * B * C;
-	while (mul / 10 != 0 || mul != 0)
+
+	while (mul != 0) //마지막 걸리는게 1
 	{
 		a = mul % 10;
-		
+	
 		cnt[a] += 1;
 
 		mul /= 10;
