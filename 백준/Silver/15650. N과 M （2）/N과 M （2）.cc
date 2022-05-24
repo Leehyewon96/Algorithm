@@ -43,7 +43,7 @@ void dfs(int k)
                 dfs(k + 1);
                 continue;
             }
-            else if (arr[k - 1] < i)
+            if (arr[k - 1] < i)
             {
                 arr[k] = i;
                 dfs(k + 1);
