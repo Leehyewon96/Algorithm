@@ -7,7 +7,7 @@
 using namespace std;
 #define MOD 1000000000;
 
-long long D[100001][3];
+long long D[100001];
 long long DP(int N);
 
 int main()
@@ -23,22 +23,12 @@ int main()
 
 long long DP(int N)
 {
-    D[1][0] = 0;
-    D[1][1] = 1;
-    for (int i = 2; i <= N; ++i)
+    D[1] = 1;
+    D[2] = 1;
+    if (D[N] > 0)
     {
-        for (int j = 0; j <= 1; ++j)
-        {
-            if (j == 0)
-            {
-                D[i][j] = D[i - 1][0] + D[i - 1][1];
-            }
-            else
-            {
-                D[i][j] = D[i - 1][0];
-            }
-        }
+        return D[N];
     }
-
-    return (long long)D[N][0] + D[N][1];
+    D[N] = DP(N - 1) + DP(N - 2);
+    return D[N];
 }
