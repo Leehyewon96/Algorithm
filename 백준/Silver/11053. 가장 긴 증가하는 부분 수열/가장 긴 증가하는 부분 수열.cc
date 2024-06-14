@@ -1,52 +1,42 @@
 #include <iostream>
 #include <string>
-#include <stack>
 #include <vector>
-#include <algorithm>
-#include <cmath>
-using namespace std;
-#define MOD 1000000000;
 
-int D[100001];
-int DP(vector<int> vec);
+using namespace std;
+
 
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
+    cout.tie(NULL);
 
-    int N, M;
-    vector<int> vec;
+    int N;
     cin >> N;
+    vector<int> vec(N, 0);
+    vector<int> dpVec(N, 0);
+
     for (int i = 0; i < N; ++i)
     {
-        cin >> M;
-        vec.push_back(M);
+        cin >> vec[i];
     }
-    cout << DP(vec) << '\n';
-    return 0;
-}
 
-int DP(vector<int> vec)
-{
-    int max = 1;
-    D[0] = 1;
-    for (int i = 0; i < vec.size(); ++i)
+    int res = 0;
+    for (int i = 0; i < N; ++i)
     {
-        D[i] = 1;
-        for (int j = i - 1; j >= 0; --j)
+        for (int j = 0; j < N; ++j)
         {
-            if (vec[j] < vec[i] && D[i] < D[j] + 1)
+            if (vec[i] > vec[j])
             {
-                D[i] = D[j] + 1;
+                dpVec[i] = max(dpVec[i], dpVec[j]);
             }
         }
-
-        if (max < D[i])
-        {
-            max = D[i];
-        }
+        dpVec[i]++;
+        res = max(dpVec[i], res);
     }
 
-    return max;
+    cout << res;
+
+    return 0;
+
 }
