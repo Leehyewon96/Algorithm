@@ -1,16 +1,12 @@
 #include <iostream>
+#include <vector>
 using namespace std;
-
-int main()
+int main() 
 {
-    int A, B, C;
-    
-    cin >> A >> B >> C;
-    
-    cout << (A + B) % C << endl;
-    cout << ((A % C) + (B % C)) % C << endl;
-    cout << (A * B) % C << endl;
-    cout << ((A % C) * (B % C)) % C << endl;
-    
-    return 0;
+	int A, B, C;
+	cin >> A >> B >> C;
+
+	cout << (A + B) % C << '\n' << ((A % C) + (B % C)) % C << '\n' << (A * B) % C << '\n' << ((A % C) * (B % C)) % C << '\n';
+
+	return 0;
 }
