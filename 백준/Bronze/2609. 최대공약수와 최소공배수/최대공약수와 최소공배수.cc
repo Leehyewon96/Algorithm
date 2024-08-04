@@ -1,32 +1,37 @@
 #include <iostream>
-#include <string>
-#include <stack>
-#include <vector>
 using namespace std;
-
-int GCD(int m, int n);
 
 int main()
 {
-    int m, n;
-    cin >> m >> n;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 
-    cout << GCD(m, n) << ' ';
-    
-    //LCM
-    int lcm = (m * n) / GCD(m, n);
-    cout << lcm;
-    return 0;
-}
+	int a, b;
+	
+	cin >> a >> b;
+	
+	if (a < b)
+	{
+		int t = a;
+		a = b;
+		b = t;
+	}
 
-int GCD(int m, int n)
-{
-    //GCD
-    while (n != 0)
-    {
-        int temp = m % n;
-        m = n;
-        n = temp;
-    }
-    return m;
+	int originB = b;
+
+	int r = a % b;
+	while (r != 0)
+	{
+		int tempB = b;
+		b = r;
+		r = tempB % r;
+		
+	}
+
+	cout << b << '\n';
+
+	cout << a * originB / b;
+
+	return 0;
 }
