@@ -1,48 +1,35 @@
 #include <iostream>
-#include <string>
-#include <stack>
-#include <vector>
 using namespace std;
 
-void PrintPrimeNumber(int m, int n);
+int dp[1000001];
 
 int main()
 {
-    int m, n;
-    cin >> m >> n;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	
+	int M, N;
+	cin >> M >> N;
+	dp[1] = -1;
+	for(int i = 2; i * i < 1000001; ++i)
+	{
+		if (dp[i] != -1)
+		{
+			for (int j = i * i; j < 1000001; j += i)
+			{
+				dp[j] = -1;
+			}
+		}
+	}
 
-    PrintPrimeNumber(m, n);
-    return 0;
-    
+	for (int i = M; i <= N; ++i)
+	{
+		if (dp[i] == 0)
+		{
+			cout << i << '\n';
+		}
+	}
 
-}
-
-void PrintPrimeNumber(int m, int n)
-{
-    vector<int> v;
-    vector<bool> checkVec;
-    for (int i = 2; i <= n; ++i)
-    {
-        checkVec.push_back(false);
-    }
-
-    for (int i = 0; i < checkVec.size(); ++i)
-    {
-        int temp = i + 2;
-        if (!checkVec[i])
-        {
-            for (int j = temp * 2; j <= n; j += temp)
-            {
-                checkVec[j - 2] = true;
-            }
-        }
-    }
-
-    for (int i = 0; i < checkVec.size(); ++i)
-    {
-        if(!checkVec[i] && i + 2 >= m)
-        {
-            cout << i + 2 << '\n';
-        }
-    }
+	return 0;
 }
