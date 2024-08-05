@@ -1,57 +1,45 @@
 #include <iostream>
-#include <string>
-#include <stack>
 #include <vector>
 #include <algorithm>
-#include <cmath>
+
 using namespace std;
+#define MAX 60
 
-int D[1000001];
+int N;
+int methodNum = 0;
 
-int DP(int n);
+
+void DFS(int sum, int inputNum)
+{
+    if (sum > inputNum)
+    {
+        return;
+    }
+
+    if (sum == inputNum)
+    {
+        ++methodNum;
+    }
+
+    for (int i = 1; i <= 3; ++i)
+    {
+        DFS(sum + i, inputNum);
+    }
+}
 
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-
-    int M, N;
-    cin >> M;
-    for (int i = 0; i < M; ++i)
+    cin >> N;
+    vector<int> inputVec;
+    int inputNum = 0;
+    for (int i = 0; i < N; ++i)
     {
-        cin >> N;
-        cout << DP(N) << '\n';
+        cin >> inputNum;
+
+        DFS(0, inputNum);
+        cout << methodNum << '\n';
+        methodNum = 0;
     }
-    
     return 0;
-}
-
-int DP(int n)
-{
-    if (n == 0)
-    {
-        return 1;
-    }
-    if (n == 1)
-    {
-        return 1;
-    }
-    if (n == 2)
-    {
-        return 2;
-    }
-    if (n == 3)
-    {
-        return 4;
-    }
-
-    if (D[n] > 0)
-    {
-        return D[n];
-    }
-
-    
-    D[n] = DP(n - 1) + DP(n - 2) + DP(n - 3);
-    return D[n];
 }
