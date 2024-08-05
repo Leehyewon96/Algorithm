@@ -1,46 +1,47 @@
 #include <iostream>
-#include <string>
-#include <stack>
 #include <vector>
 #include <algorithm>
-#include <cmath>
 using namespace std;
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 
-    int E, S, M;
-    cin >> E >> S >> M;
+	int E, S, M;
+	int e = 1;
+	int s = 1;
+	int m = 1;
 
-    int e = 1;
-    int s = 1;
-    int m = 1;
-    int num = 1;
-    while (E != e || S != s || M != m)
-    {
-        ++num;
-        ++e;
-        ++s;
-        ++m;
+	cin >> E >> S >> M;
 
-        if (e > 15)
-        {
-            e = 1;
-        }
+	int year = 1;
+	while (e != E || s != S || m != M)
+	{
+		year++;
+		e++;
+		s++;
+		m++;
 
-        if (s > 28)
-        {
-            s = 1;
-        }
+		if (e > 15)
+		{
+			e = 1;
+		}
 
-        if (m > 19)
-        {
-            m = 1;
-        }
-    }
+		if (s > 28)
+		{
+			s = 1;
+		}
 
-    cout << num << '\n';
-    return 0;
+		if (m > 19)
+		{
+			m = 1;
+		}
+	}
+
+	cout << year;
+	
+
+	return 0;
 }
