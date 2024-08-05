@@ -1,45 +1,45 @@
 #include <iostream>
-#include <string>
-#include <stack>
-#include <vector>
-#include <algorithm>
-#include <cmath>
 using namespace std;
 
-int Kying(vector<int> vec)
+int GCD(int a, int b)
 {
-    int M = vec[0];
-    int N = vec[1];
+	if (b == 0)
+	{
+		return a;
+	}
 
-    for (int i = vec[2] - 1; i < M * N; i += M)
-    {
-        if (i % N == vec[3] - 1)
-        {
-            return i + 1;
-        }
-    }
-    return -1;
+	return GCD(b, a % b);
 }
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 
-    int n;
-    cin >> n;
-    vector<int> vec;
-    int N;
-    for (int i = 0; i < n; ++i)
-    {
-        for (int j = 0; j < 4; ++j)
-        {
-            cin >> N;
-            vec.push_back(N);
-        }
-        cout << Kying(vec) << '\n';
-        vec.clear();
-    }
+	int T;
+	cin >> T;
+	int x, y, cx, cy;
+	while (T--)
+	{
+		cin >> x >> y >> cx >> cy;
 
-    return 0;
+		int curX = 1;
+		int curY = 1;
+		int year = -1;
+		int gcd = GCD(x, y);
+		int lcm = x * y / gcd;
+		
+		for (int i = cx - 1; i < lcm; i += x)
+		{
+			if (i % y == cy - 1)
+			{
+				year = i + 1;
+				break;
+			}
+		}
+		cout << year << '\n';
+	}
+
+	return 0;
 }
