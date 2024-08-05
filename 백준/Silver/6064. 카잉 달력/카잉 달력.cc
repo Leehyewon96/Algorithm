@@ -24,8 +24,6 @@ int main()
 	{
 		cin >> x >> y >> cx >> cy;
 
-		int curX = 1;
-		int curY = 1;
 		int year = -1;
 		int gcd = GCD(x, y);
 		int lcm = x * y / gcd;
