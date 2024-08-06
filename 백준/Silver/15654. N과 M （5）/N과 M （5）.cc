@@ -1,51 +1,55 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
 using namespace std;
 
-void dfs(int k);
+bool visited[9];
 
-int arr[9];
-bool visited[9] = {0};
-int answer[9];
+void DFS(int m, vector<int>& pick, const vector<int>& inputVec)
+{
+	if (pick.size() == m)
+	{
+		for (int i = 0; i < pick.size(); ++i)
+		{
+			cout << pick[i] << ' ';
+		}
+		cout << '\n';
+		return;
+	}
 
-int N, M;
+	for (int i = 0; i < inputVec.size(); ++i)
+	{
+		if (visited[i])
+		{
+			continue;
+		}
+		visited[i] = true;
+		pick.push_back(inputVec[i]);
+		DFS(m, pick, inputVec);
+		pick.pop_back();
+		visited[i] = false;
+	}
+}
 
 int main()
 {
-    cin >> N >> M;
-    for(int i = 0; i < N; i++)
-    {
-        cin >> arr[i];
-    }
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 
-    sort(arr, arr + N);
+	int N, M;
+	cin >> N >> M;
+	vector<int> inputVec = vector<int>(N);
 
-    dfs(0);
+	for (int i = 0; i < inputVec.size(); ++i)
+	{
+		cin >> inputVec[i];
+	}
 
-    return 0;
-}
+	sort(inputVec.begin(), inputVec.end());
 
-void dfs(int k)
-{
-    if(k == M)
-    {
-        for(int i = 0; i < k; i++)
-        {
-            cout << answer[i] << ' ';
-        }
-        cout << "\n";
-    }
-    else
-    {
-        for(int i = 0; i < N; i++)
-        {
-            if(!visited[i])
-            {
-                visited[i] = true;
-                answer[k] = arr[i];
-                dfs(k+1);
-                visited[i] = false;
-            } 
-        }
-    }
+	vector<int> pick;
+	DFS(M, pick, inputVec);
+
+	return 0;
 }
