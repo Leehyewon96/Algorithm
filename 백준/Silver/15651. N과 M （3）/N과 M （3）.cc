@@ -1,44 +1,45 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-int N, M;
-int arr[9];
+//bool visited[9];
 
-void dfs(int k);
-
-void Init()
+void DFS(int m, int n, vector<int>& pick)
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-};
+	if (pick.size() == m)
+	{
+		for (int i = 0; i < pick.size(); ++i)
+		{
+			cout << pick[i] << ' ';
+		}
+		cout << '\n';
+		return;
+	}
+
+	for (int i = 1; i <= n; ++i)
+	{
+		/*if (visited[i])
+		{
+			continue;
+		}*/
+		//visited[i] = true;
+		pick.push_back(i);
+		DFS(m, n, pick);
+		pick.pop_back();
+		//visited[i] = false;
+	}
+}
 
 int main()
 {
-    Init();
-    cin >> N >> M;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 
-    dfs(0);
+	int N, M;
+	cin >> N >> M;
+	vector<int> pick;
+	DFS(M, N, pick);
 
-    return 0;
-}
-
-void dfs(int k)
-{
-    if (k == M)
-    {
-        for (int i = 0; i < M; i++)
-        {
-            cout << arr[i] << ' ';
-        }
-        cout << "\n";
-    }
-    else
-    {
-        for (int i = 1; i <= N; i++)
-        {
-            arr[k] = i;
-            dfs(k + 1);
-        }
-    }
+	return 0;
 }
