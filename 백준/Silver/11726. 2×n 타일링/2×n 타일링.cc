@@ -1,40 +1,47 @@
 #include <iostream>
-#include <string>
-#include <stack>
 #include <vector>
+#include <string>
 #include <algorithm>
-#include <cmath>
+#include <memory.h>
 using namespace std;
 
-int D[1000001];
+int dp[1001];
 
-int DP(int n);
+int DP(int N)
+{
+	if (N == 1)
+	{
+		return 1;
+	}
+
+	if (N == 2)
+	{
+		return 2;
+	}
+
+	if (dp[N] > 0)
+	{
+		return dp[N];
+	}
+
+	dp[N] = DP(N - 1) + DP(N - 2);
+	return dp[N] % 10007;
+}
 
 
 int main()
 {
-    int N;
-    cin >> N;
-    cout << DP(N);
-    return 0;
-}
+	cin.tie(0);
+	cin.sync_with_stdio(0);
+	
+	int N;
+	cin >> N;
 
-int DP(int n)
-{
-    if (n == 1)
-    {
-        return 1;
-    }
-    if (n == 2)
-    {
-        return 2;
-    }
+	dp[1] = 1;
+	dp[2] = 2;
 
-    if (D[n] > 0)
-    {
-        return D[n];
-    }
+	
+	cout << DP(N);
 
-    D[n] = DP(n - 1) + DP(n - 2);
-    return D[n] % 10007;
+	return 0;
 }
