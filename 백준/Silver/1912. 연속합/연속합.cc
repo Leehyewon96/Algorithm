@@ -1,42 +1,34 @@
 #include <iostream>
-#include <string>
-#include <stack>
 #include <vector>
+#include <string>
 #include <algorithm>
-#include <cmath>
+#include <memory.h>
+
 using namespace std;
-#define MOD 1000000000;
-
-int D[100000];
-int DP(vector<int> vec);
-
+int dp[100001];
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+	cin.tie(0);
+	cin.sync_with_stdio(0);
 
-    int N;
-    int M;
-    vector<int> vec;
-    cin >> N;
-    for (int i = 0; i < N; ++i)
-    {
-        cin >> M;
-        vec.push_back(M);
-    }
-    cout << DP(vec) << '\n';
-    return 0;
-}
+	int N;
+	cin >> N;
+	vector<int> vec(N);
+	for (int i = 0; i < N; ++i)
+	{
+		cin >> vec[i];
+	}
 
-int DP(vector<int> vec)
-{
-    D[0] = vec.front();
-    int maxSum = D[0];
-    for (int i = 1; i < vec.size(); ++i)
-    {
-        D[i] = max(vec[i] + D[i - 1], vec[i]);
-        maxSum = max(D[i], maxSum);
-    }
+	int ans = vec[0];
+	dp[0] = vec[0];
+	for (int i = 1; i < N; ++i)
+	{
+		dp[i] = max(vec[i], dp[i - 1] + vec[i]);
+		ans = max(ans, dp[i]);
+	}
 
-    return maxSum;
+	cout << ans;
+
+
+	return 0;
 }
