@@ -1,54 +1,42 @@
 #include <iostream>
-#include <string>
-#include <stack>
 #include <vector>
+#include <string>
 #include <algorithm>
 #include <cmath>
-using namespace std;
-#define MOD 1000000009;
+#include <memory.h>
 
-int D[10001][4];
-int DP(vector<vector<int>> vecRGB);
+using namespace std;
+int dp[1001][3];
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+	cin.tie(0);
+	cin.sync_with_stdio(0);
 
-    int N;
-    cin >> N;
-    int M;
-    vector<vector<int>> vecRGB;
-    for (int i = 0; i < N; ++i)
-    {
-        vector<int> vec;
-        for (int j = 0; j < 3; ++j)
-        {
-            cin >> M;
-            vec.push_back(M);
-        }
-        vecRGB.push_back(vec);
-    }
-    cout << DP(vecRGB) << '\n';
-    return 0;
-}
+	int N; 
+	cin >> N;
 
-int DP(vector<vector<int>> vecRGB)
-{
-    for (int i = 0; i < vecRGB.size(); ++i)
-    {
-        for (int j = 0; j < 3; ++j)
-        {
-            D[i+1][j] = vecRGB[i][j];
-        }
-    }
+	vector<vector<int>> vec(N, vector<int>(3));
+	for (int i = 0; i < N; ++i)
+	{
+		cin >> vec[i][0] >> vec[i][1] >> vec[i][2];
+	}
 
-    for (int i = 1; i <= vecRGB.size(); ++i)
-    {
-        D[i][0] += min(D[i - 1][1], D[i - 1][2]);
-        D[i][1] += min(D[i - 1][0], D[i - 1][2]);
-        D[i][2] += min(D[i - 1][0], D[i - 1][1]);
-    }
+	for (int i = 0; i < N; ++i)
+	{
+		dp[i][0] = vec[i][0];
+		dp[i][1] = vec[i][1];
+		dp[i][2] = vec[i][2];
+	}
 
-    return min(D[vecRGB.size()][0], min(D[vecRGB.size()][1], D[vecRGB.size()][2]));
+	for (int i = 1; i < N; ++i)
+	{
+		dp[i][0] += min(dp[i - 1][1], dp[i - 1][2]);
+		dp[i][1] += min(dp[i - 1][0], dp[i - 1][2]);
+		dp[i][2] += min(dp[i - 1][0], dp[i - 1][1]);
+	}
+
+	cout << min(dp[N - 1][0], min(dp[N - 1][1], dp[N - 1][2]));
+
+	return 0;
 }
