@@ -1,50 +1,45 @@
 #include <iostream>
-#include <string>
-#include <stack>
 #include <vector>
+#include <string>
 #include <algorithm>
 #include <cmath>
-using namespace std;
-#define MOD 10007;
+#include <memory.h>
 
-int D[1002];
-int DP(vector<int> vec);
+using namespace std;
+int dp[1001];
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+	cin.tie(0);
+	cin.sync_with_stdio(0);
 
-    int N, M;
-    cin >> N;
-    vector<int> vec;
-    for (int i = 0; i < N; ++i)
-    {
-        cin >> M;
-        vec.push_back(M);
-    }
-    cout << DP(vec) << '\n';
-    return 0;
-}
+	int N; 
+	cin >> N;
 
-int DP(vector<int> vec)
-{
-    int maxResult = 1;
-    for (int i = 0; i < vec.size(); ++i)
-    {
-        D[i] = 1;
-        int curmax = 1;
-        for (int j = 0; j < i; ++j)
-        {
-            if (vec[i] < vec[j] && 1 + D[j] > curmax)
-            {
-                D[i] = D[j] + 1;
-                curmax = D[i];
-            }
-        }
+	vector<int> vec(N + 1);
 
-        maxResult = max(maxResult, curmax);
-    }
+	for (int i = 1; i <= N; ++i)
+	{
+		cin >> vec[i];
+	}
 
-    return maxResult;
+	int ans = 0;
+	dp[1] = 1;
+	for (int i = 1; i <= N; ++i)
+	{
+		dp[i] = 1;
+		
+		for (int j = 0; j < i; ++j)
+		{
+			if (vec[i] < vec[j])
+			{
+				dp[i] = max(dp[i], dp[j] + 1);
+			}
+		}
+		ans = max(ans, dp[i]);
+	}
+
+	cout << ans;
+
+	return 0;
 }
