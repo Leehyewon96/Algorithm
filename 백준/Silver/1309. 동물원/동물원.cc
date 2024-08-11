@@ -1,37 +1,39 @@
 #include <iostream>
-#include <string>
-#include <stack>
 #include <vector>
+#include <string>
 #include <algorithm>
 #include <cmath>
-using namespace std;
+#include <memory.h>
+
 #define MOD 9901;
 
-int D[1000001][4];
-int DP(int num);
+using namespace std;
+int dp[100001][3];
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+	cin.tie(0);
+	cin.sync_with_stdio(0);
 
-    int N;
-    cin >> N;
-    cout << DP(N) << '\n';
-    return 0;
-}
+	int N; 
+	cin >> N;
 
-int DP(int num)
-{
-    D[1][0] = 1;
-    D[1][1] = 1;
-    D[1][2] = 1;
-    for (int i = 2; i <= num; ++i)
-    {
-        D[i][0] = (D[i - 1][0] + D[i - 1][1] + D[i - 1][2]) % MOD;
-        D[i][1] = (D[i - 1][0] + D[i - 1][2]) % MOD;
-        D[i][2] = (D[i - 1][0] + D[i - 1][1]) % MOD;
-    }
+	dp[1][0] = 1;
+	dp[1][1] = 1;
+	dp[1][2] = 1;
 
-    return (D[num][0] + D[num][1] + D[num][2]) % MOD;
+	for (int i = 2; i <= N; ++i)
+	{
+		dp[i][0] = (dp[i - 1][1] + dp[i - 1][2]) % MOD;
+		dp[i][1] = (dp[i - 1][0] + dp[i - 1][2]) % MOD;
+		dp[i][2] = (dp[i - 1][1] + dp[i - 1][0] + dp[i - 1][2]) % MOD;
+	}
+
+	cout << (dp[N][0] + dp[N][1] + dp[N][2]) % MOD;
+
+	//dp[n][0] = dp[n - 1][1];
+	//dp[n][1] = dp[n -1][0];
+	//dp[n][2] = dp[n - 1][1] +  dp[n - 1][0];
+
+	return 0;
 }
