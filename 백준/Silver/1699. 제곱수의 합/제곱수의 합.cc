@@ -1,39 +1,39 @@
 #include <iostream>
-#include <string>
-#include <stack>
 #include <vector>
+#include <string>
 #include <algorithm>
 #include <cmath>
+#include <memory.h>
+
 using namespace std;
-#define MOD 1000000000;
-
-int D[100000];
-int DP(int vec);
-
+int dp[100001];
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+	cin.tie(0);
+	cin.sync_with_stdio(0);
 
-    int N;
-    cin >> N;
-    cout << DP(N) << '\n';
-    return 0;
-}
+	int N;
+	cin >> N;
 
-int DP(int num)
-{
-    for (int i = 1; i <= num; ++i)
-    {
-        D[i] = i;
-        for (int j = 1; i >= j * j; ++j)
-        {
-            if (D[i] > 1 + D[i - j * j])
-            {
-                D[i] = 1 + D[i - j * j];
-            }
-        }
-    }
-    return D[num];
-   
+	for (int i = 1; i <= N; ++i)
+	{
+		dp[i] = i;
+	}
+
+	for (int i = 1; i <= sqrtf(N); ++i)
+	{
+		dp[i * i] = 1;
+	}
+
+	for (int i = 3; i <= N; ++i)
+	{
+		for (int j = 1; i >= j*j; ++j)
+		{
+			dp[i] = min(dp[i], dp[i - j *j] + 1);
+		}
+	}
+
+	cout << dp[N];
+
+	return 0;
 }
