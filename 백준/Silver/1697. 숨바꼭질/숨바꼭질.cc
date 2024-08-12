@@ -28,7 +28,7 @@ int BFS(int n, int k)
 		if (front - 1 >= 0)
 		{
 			next = front - 1;
-			if (!visited[next] || visited[next] > visited[front])
+			if (!visited[next])
 			{
 				visited[next] = visited[front] + 1;
 				q.push(next);
@@ -38,7 +38,7 @@ int BFS(int n, int k)
 		if (front + 1 <= 100000)
 		{
 			next = front + 1;
-			if (!visited[next] || visited[next] > visited[front])
+			if (!visited[next])
 			{
 				visited[next] = visited[front] + 1;
 				q.push(next);
@@ -48,7 +48,7 @@ int BFS(int n, int k)
 		if (front * 2 <= 100000)
 		{
 			next = front * 2;
-			if (!visited[next] || visited[next] > visited[front])
+			if (!visited[next])
 			{
 				visited[next] = visited[front] + 1;
 				q.push(next);
