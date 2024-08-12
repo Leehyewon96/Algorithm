@@ -1,70 +1,83 @@
 #include <iostream>
-#include <string>
-#include <stack>
 #include <vector>
-#include <queue>
 #include <algorithm>
-#include <cmath>
+#include <queue>
+#include <memory.h>
+
 using namespace std;
 
-bool a[1001][1001] = {false, };
-bool check[1001] = { false, };
-bool check2[1001] = { false, };
+bool visited[1002];
 
-void DFS(int num, int n)
+void DFS(const vector<vector<int>>& vec, int cur)
 {
-    check[num] = true;
-    cout << num << ' ';
-    for (int i = 1; i <= n; ++i)
-    {
-        if (a[num][i] == true && check[i] == false)
-        {
-            DFS(i, n);
-        }
-    }
+	cout << cur << ' ';
+
+	for (int i = 0; i < vec[cur].size(); ++i)
+	{
+		if (visited[vec[cur][i]])
+		{
+			continue;
+		}
+		visited[vec[cur][i]] = true;
+		DFS(vec, vec[cur][i]);
+		//visited[vec[cur][i]] = false;
+	}
 }
 
-void BFS(int num, int n)
+void BFS(const vector<vector<int>>& vec, int start)
 {
-    queue<int> q;
-    check2[num] = true;
-    q.push(num);
-    cout << num << ' ';
-    while (!q.empty())
-    {
-        int temp = q.front();
-        q.pop();
-        for (int i = 1; i <= n; ++i)
-        {
-            if (a[temp][i] == true && check2[i] == false)
-            {
-                cout << i << ' ';
-                check2[i] = true;
-                q.push(i);
-            }
-        }
-    }
+	queue<int> q;
+	q.push(start);
+	
+	while (!q.empty())
+	{
+		int front = q.front();
+		cout << front << ' ';
+		q.pop();
+
+		for (int i = 0; i < vec[front].size(); ++i)
+		{
+			if (visited[vec[front][i]])
+			{
+				continue;
+			}
+
+			visited[vec[front][i]] = true;
+			q.push(vec[front][i]);
+		}
+	}
 }
 
 int main()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+	cin.tie(0);
+	cin.sync_with_stdio(0);
 
-    int N, M, V;
+	int N, M, V;
+	cin >> N >> M >> V;
 
-    cin >> N >> M >> V;
+	vector<vector<int>> vec(N + 1);
 
-    for (int i = 0; i < M; ++i)
-    {
-        int v1, v2;
-        cin >> v1 >> v2;
-        a[v1][v2] = true;
-        a[v2][v1] = true;
-    }
+	int a, b;
+	for (int i = 0; i < M; ++i)
+	{
+		cin >> a >> b;
+		vec[a].push_back(b);
+		vec[b].push_back(a);
+	}
 
-    DFS(V, N);
-    cout << '\n';
-    BFS(V, N);
-    return 0;
+	for (int i = 1; i <= N; ++i)
+	{
+		sort(vec[i].begin(), vec[i].end());
+	}
+
+	visited[V] = true;
+	DFS(vec, V);
+
+	cout << '\n';
+	memset(visited, false, sizeof(visited));
+	visited[V] = true;
+	BFS(vec, V);
+
+	return 0;
 }
